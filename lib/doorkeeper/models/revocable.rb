@@ -2,7 +2,7 @@ module Doorkeeper
   module Models
     module Revocable
       def revoke(clock = DateTime)
-        update_column :revoked_at, clock.now
+        delete
       end
 
       def revoked?
