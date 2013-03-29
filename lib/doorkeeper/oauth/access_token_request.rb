@@ -125,7 +125,10 @@ module Doorkeeper::OAuth
     end
 
     def validate_redirect_uri
-      refresh_token? ? true : base_token.redirect_uri == redirect_uri
+      temp_pro_url_secure = "https://cold-planet-6262.herokuapp.com/auth/single_signon/callback"
+      temp_pro_url = "http://cold-planet-6262.herokuapp.com/auth/single_signon/callback"
+      req_uri = redirect_uri.gsub(/\?facebook_login=true/,'') if redirect_uri
+      refresh_token? ? true : (base_token.redirect_uri == req_uri || temp_pro_url == req_uri || temp_pro_url_secure == req_uri)
     end
 
     def validate_grant_type
